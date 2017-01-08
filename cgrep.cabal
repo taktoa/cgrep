@@ -1,32 +1,32 @@
-Name:                   cgrep
-Description:            Cgrep: a context-aware grep for source codes
-Version:                6.6.17
-Synopsis:               Command line tool
-Homepage:               http://awgn.github.io/cgrep/
-License:                GPL-2
-License-file:           LICENSE
-Author:                 Nicola Bonelli
-Maintainer:             Nicola Bonelli <nicola@pfq.io>
-Category:               Utils
-Build-type:             Simple
-Stability:              Experimental
-Build-type:             Simple
-Extra-source-files:     README.md
-Cabal-version:          >=1.10
+name:                   cgrep
+description:            Cgrep: a context-aware grep for source codes
+version:                6.6.17
+synopsis:               Command line tool
+homepage:               http://awgn.github.io/cgrep/
+license:                GPL-2
+license-file:           LICENSE
+author:                 Nicola Bonelli
+maintainer:             Nicola Bonelli <nicola@pfq.io>
+category:               Utils
+build-type:             Simple
+stability:              Experimental
+build-type:             Simple
+extra-source-files:     README.md
+cabal-version:          >=1.10
 
-Executable cgrep
-  Main-Is:              Main.hs
-  Hs-Source-Dirs:       src
-  Default-Extensions:   CPP
+executable cgrep
+  main-is:              Main.hs
+  hs-source-dirs:       src
+  default-extensions:   CPP
                          
-  Other-Extensions:     DeriveDataTypeable,
+  other-extensions:     DeriveDataTypeable,
                         ViewPatterns,
                         MagicHash,
                         BangPatterns,
                         FlexibleInstances,
                         FlexibleContexts
-  Other-Modules:        Debug Options CmdOptions Util Config Reader CGrep.Lang CGrep.Filter CGrep.Token CGrep.Types CGrep.CGrep CGrep.Output CGrep.Distance CGrep.Common CGrep.Context CGrep.Parser.WildCard CGrep.Parser.Generic.Token CGrep.Parser.Token CGrep.Parser.Cpp.Token CGrep.Strategy.Generic.Semantic CGrep.Strategy.Levenshtein CGrep.Strategy.BoyerMoore CGrep.Strategy.Cpp.Tokenizer CGrep.Strategy.Cpp.Semantic CGrep.Strategy.Regex
-  Build-Depends:        base < 5.0,
+  other-modules:        Debug Options CmdOptions Util Config Reader CGrep.Lang CGrep.Filter CGrep.Token CGrep.Types CGrep.CGrep CGrep.Output CGrep.Distance CGrep.Common CGrep.Context CGrep.Parser.WildCard CGrep.Parser.Generic.Token CGrep.Parser.Token CGrep.Parser.Cpp.Token CGrep.Strategy.Generic.Semantic CGrep.Strategy.Levenshtein CGrep.Strategy.BoyerMoore CGrep.Strategy.Cpp.Tokenizer CGrep.Strategy.Cpp.Semantic CGrep.Strategy.Regex
+  build-depends:        base < 5.0,
                         cmdargs              >= 0.10,
                         bytestring           >= 0.10,
                         directory            >= 1.2,
@@ -52,5 +52,5 @@ Executable cgrep
                         unicode-show,
                         transformers,
                         process
-  Ghc-options:          -O2 -Wall -threaded -rtsopts -with-rtsopts=-N
-  Default-language:     Haskell2010
+  ghc-options:          -O2 -Wall -threaded -rtsopts -with-rtsopts=-N
+  default-language:     Haskell2010
