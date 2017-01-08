@@ -64,10 +64,10 @@ library
                       , mtl                  >= 2.0
                       , unix-compat          >= 0.4
                       , async                >= 2.0
-                      , utf8-string
-                      , unicode-show
-                      , transformers
-                      , process
+                      , utf8-string          >= 1.0
+                      , unicode-show         >= 0.1
+                      , transformers         >= 0.4
+                      , process              >= 1.4
   default-extensions:   CPP
   other-extensions:     DeriveDataTypeable
                       , ViewPatterns
