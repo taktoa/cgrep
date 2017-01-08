@@ -125,7 +125,7 @@ prettyOutput out = do
           | json opt            -> jsonOutput out
           | xml opt             -> xmlOutput  out
 #ifdef ENABLE_HINT
-          | isJust $ hint opt   -> hintOputput out
+          | isJust $ hint opt   -> hintOutput out
 #endif
           | otherwise           -> defaultOutput out
 
@@ -209,8 +209,8 @@ replace [] _ = []
 
 
 #ifdef ENABLE_HINT
-hintOputput :: [Output] -> OptionT IO [String]
-hintOputput outs = do
+hintOutput :: [Output] -> OptionT IO [String]
+hintOutput outs = do
     (_,opt) <- ask
     let cmds = map mkCmd outs
     out <- runInterpreter $ setImports ["Prelude", "Data.List"] >> mapM (`interpret` (as :: String)) cmds
