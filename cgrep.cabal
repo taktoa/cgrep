@@ -18,13 +18,13 @@ executable cgrep
   main-is:              Main.hs
   hs-source-dirs:       src
   default-extensions:   CPP
-                         
-  other-extensions:     DeriveDataTypeable,
-                        ViewPatterns,
-                        MagicHash,
-                        BangPatterns,
-                        FlexibleInstances,
-                        FlexibleContexts
+
+  other-extensions:     DeriveDataTypeable
+                      , ViewPatterns
+                      , MagicHash
+                      , BangPatterns
+                      , FlexibleInstances
+                      , FlexibleContexts
   other-modules:        Debug
                         Options
                         CmdOptions
@@ -50,31 +50,31 @@ executable cgrep
                         CGrep.Strategy.Cpp.Tokenizer
                         CGrep.Strategy.Cpp.Semantic
                         CGrep.Strategy.Regex
-  build-depends:        base < 5.0,
-                        cmdargs              >= 0.10,
-                        bytestring           >= 0.10,
-                        directory            >= 1.2,
-                        filepath             >= 1.3,
-                        stm                  >= 2.1,
-                        containers           >= 0.5,
-                        array                >= 0.4,
-                        ghc-prim             >= 0.2,
-                        dlist                >= 0.3,
-                        ansi-terminal        >= 0.5,
-                        split                >= 0.2,
-                        safe                 >= 0.3,
-                        stringsearch         >= 0.3,
-                        unordered-containers >= 0.1,
-                        regex-base           >= 0.90,
-                        regex-posix          >= 0.90,
-                        regex-pcre           >= 0.90,
-                        either               >= 4.0,
-                        mtl                  >= 2.0,
-                        unix-compat          >= 0.4,
-                        async                >= 2.0,
-                        utf8-string,
-                        unicode-show,
-                        transformers,
-                        process
+  build-depends:        base < 5.0
+                      , cmdargs              >= 0.10
+                      , bytestring           >= 0.10
+                      , directory            >= 1.2
+                      , filepath             >= 1.3
+                      , stm                  >= 2.1
+                      , containers           >= 0.5
+                      , array                >= 0.4
+                      , ghc-prim             >= 0.2
+                      , dlist                >= 0.3
+                      , ansi-terminal        >= 0.5
+                      , split                >= 0.2
+                      , safe                 >= 0.3
+                      , stringsearch         >= 0.3
+                      , unordered-containers >= 0.1
+                      , regex-base           >= 0.90
+                      , regex-posix          >= 0.90
+                      , regex-pcre           >= 0.90
+                      , either               >= 4.0
+                      , mtl                  >= 2.0
+                      , unix-compat          >= 0.4
+                      , async                >= 2.0
+                      , utf8-string
+                      , unicode-show
+                      , transformers
+                      , process
   ghc-options:          -O2 -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language:     Haskell2010
