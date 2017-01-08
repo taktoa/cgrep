@@ -8,24 +8,15 @@ license-file:           LICENSE
 author:                 Nicola Bonelli
 maintainer:             Nicola Bonelli <nicola@pfq.io>
 category:               Utils
-build-type:             Simple
 stability:              Experimental
 build-type:             Simple
 extra-source-files:     README.md
 cabal-version:          >=1.10
 
-executable cgrep
-  main-is:              Main.hs
-  hs-source-dirs:       src
-  default-extensions:   CPP
-
-  other-extensions:     DeriveDataTypeable
-                      , ViewPatterns
-                      , MagicHash
-                      , BangPatterns
-                      , FlexibleInstances
-                      , FlexibleContexts
-  other-modules:        Debug
+library
+  hs-source-dirs:       lib
+  exposed-modules:      CLI
+                        Debug
                         Options
                         CmdOptions
                         Util
@@ -50,6 +41,7 @@ executable cgrep
                         CGrep.Strategy.Cpp.Tokenizer
                         CGrep.Strategy.Cpp.Semantic
                         CGrep.Strategy.Regex
+  other-modules:        Paths_cgrep
   build-depends:        base < 5.0
                       , cmdargs              >= 0.10
                       , bytestring           >= 0.10
@@ -76,5 +68,20 @@ executable cgrep
                       , unicode-show
                       , transformers
                       , process
+  default-extensions:   CPP
+  other-extensions:     DeriveDataTypeable
+                      , ViewPatterns
+                      , MagicHash
+                      , BangPatterns
+                      , FlexibleInstances
+                      , FlexibleContexts
+                      , PatternGuards
+  ghc-options:          -O2 -Wall
+  default-language:     Haskell2010
+
+executable cgrep
+  main-is:              Main.hs
+  hs-source-dirs:       app
+  build-depends:        base < 5.0, cgrep
   ghc-options:          -O2 -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language:     Haskell2010
