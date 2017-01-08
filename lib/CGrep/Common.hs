@@ -81,4 +81,3 @@ ignoreCase :: Options -> Text8 -> Text8
 ignoreCase opt
     | ignore_case opt =  C.map toLowercase
     | otherwise = id
-

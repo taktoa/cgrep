@@ -132,4 +132,3 @@ splitLangList  = foldl run ([],[],[])
             | '+':xs <- l = (l1, prettyRead xs "Lang" : l2, l3)
             | '-':xs <- l = (l1, l2, prettyRead xs "Lang" : l3)
             | otherwise   = (prettyRead l  "Lang" : l1, l2, l3)
-

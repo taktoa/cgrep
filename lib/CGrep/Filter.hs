@@ -226,5 +226,3 @@ filterFunctionMap = Map.fromList
     ,   (Verilog,    mkContextFilterFun [("/*", "*/"), ("//", "\n")]  [("\"", "\"")] )
     ,   (Vim,        mkContextFilterFun [("\"", "\n")] [("'", "'")] )
     ]
-
-

@@ -297,4 +297,3 @@ hilightLine conf ts =  hilightLine' (hilightIndicies ts, 0, 0)
 
 hilightIndicies :: [Token] -> [(Int, Int)]
 hilightIndicies = foldr (\t a -> let b = fst t in (b, b + length (snd t) - 1) : a) [] . filter (notNull . snd)
-

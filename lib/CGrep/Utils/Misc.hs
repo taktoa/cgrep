@@ -78,4 +78,3 @@ rmQuote y@(x:xs)
     | x == '"' || x == '\'' =  if x == last xs then init xs
                                                else y
     | otherwise = y
-

@@ -133,4 +133,3 @@ tokenizer xs = (\(TokenAccum _ off acc out) -> DL.toList (if null (DL.toList acc
                                             else TokenAccum StateDigit (off+1) (DL.singleton  x) (out `DL.snoc` mkToken off acc)
                    | isBracketLT ! x    ->  TokenAccum StateBracket    (off+1) (DL.singleton  x) (out `DL.snoc` mkToken off acc)
                    | otherwise          ->  TokenAccum StateOther      (off+1) (acc `DL.snoc` x)  out
-

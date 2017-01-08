@@ -80,4 +80,3 @@ options = cmdArgsMode $ Options
           ,     no_shallow = False          &= help "Disable shallow-search"  &= explicit &= name "no-shallow"
           ,     others = []                 &= args
           } &= summary ("Cgrep " ++ showVersion version ++ ". Usage: cgrep [OPTION] [PATTERN] files...") &= program "cgrep"
-

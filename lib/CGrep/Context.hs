@@ -28,4 +28,3 @@ data ContextFilter = ContextFilter
     ,   getFilterComment :: !Bool
     ,   getFilterLiteral :: !Bool
     } deriving (Eq, Show)
-

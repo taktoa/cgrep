@@ -218,4 +218,3 @@ wildCardMatch opt (TokenCard l) r
             where ls = rmQuote $ trim (tkToString l)
                   rs = rmQuote $ trim (tkToString r)
     | otherwise  = l `tkEquivalent` r
-

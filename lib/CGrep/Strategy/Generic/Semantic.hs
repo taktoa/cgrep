@@ -99,4 +99,3 @@ search f ps = do
         putStrLevel3 $ "---\n" ++ C.unpack text''' ++ "\n---"
 
         mkOutput filename text text''' matches
-

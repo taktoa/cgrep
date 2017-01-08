@@ -210,4 +210,3 @@ tokenizer xs = (\(TokenAccum ss  off _ acc out) ->
                    | x == '\''          ->  TokenAccum StateLit1       (off+1) 0 (DL.singleton  x) (out `DL.snoc` mkToken TokenBracket off acc)
                    | x == '"'           ->  TokenAccum StateLit2       (off+1) 0 (DL.singleton  x) (out `DL.snoc` mkToken TokenBracket off acc)
                    | otherwise          ->  TokenAccum StateOther      (off+1) 0 (acc `DL.snoc` x)  out
-

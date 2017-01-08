@@ -81,5 +81,3 @@ runCgrep filename patterns = do
           | (not . isRegexp) opt                                                                     -> CppTokenizer.search filename patterns
           | isRegexp opt                                                                             -> Regex.search filename patterns
           | otherwise                                                                                -> undefined
-
-

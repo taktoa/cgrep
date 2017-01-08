@@ -67,5 +67,3 @@ getConfig = do
         then liftM dropComments (readFile (head confs)) >>= \xs ->
               return (prettyRead xs "Config error" :: Config, Just (head confs))
         else return (defaultConfig, Nothing)
-
-

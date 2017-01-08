@@ -85,4 +85,3 @@ data Options = Options
     ,   no_shallow          :: Bool
     ,   others              :: [String]
     } deriving (Data, Typeable, Show)
-

@@ -101,4 +101,3 @@ splitLines xs = zip ls off
 getLineByOffset :: Offset -> Text8 -> (Text8, Offset)
 getLineByOffset off xs = last $ takeWhile (\(_,o) -> o <= off) sl
         where sl = splitLines xs
-

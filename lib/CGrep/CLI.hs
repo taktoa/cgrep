@@ -286,5 +286,3 @@ main = do
     -- run search
 
     runReaderT (parallelSearch paths patterns' langs (isTermIn, isTermOut)) (conf, opts)
-
-

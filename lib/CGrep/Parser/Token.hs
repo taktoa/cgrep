@@ -29,4 +29,3 @@ class (Show t, Ord t) => SemanticToken t where
     tkToString     :: t -> String
     tkToOffset     :: t -> Int
     tkToIdentif    :: String -> Int -> t
-

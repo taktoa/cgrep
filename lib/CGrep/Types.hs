@@ -27,4 +27,3 @@ type OffsetLine = Int
 
 type Text8     = C.ByteString
 type Line8     = C.ByteString
-

@@ -378,4 +378,3 @@ keywords = HS.fromList ["alignas", "continue", "friend", "alignof", "decltype", 
                        "volatile", "template", "wchar_t", "this", "while", "thread_local", "throw",
                        "and", "and_eq", "bitand", "bitor", "compl", "not", "not_eq", "or", "or_eq",
                        "xor", "xor_eq"]
-
