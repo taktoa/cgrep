@@ -15,7 +15,7 @@
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
 
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP, OverloadedStrings #-}
 
 module CGrep.Output (Output(..),
                      mkOutput,
@@ -26,7 +26,14 @@ module CGrep.Output (Output(..),
                      showFile,
                      showBold) where
 
+import Data.Monoid
+
+import qualified Data.Text.Lazy as LT
+import qualified Data.Text.Lazy.Builder as LT
+import qualified Data.Text.Lazy.Encoding as LT
+
 import qualified Data.ByteString as B
+import qualified Data.ByteString.Lazy as LB
 import qualified Data.ByteString.Char8 as C
 import qualified Codec.Binary.UTF8.String as UC
 
@@ -57,6 +64,12 @@ import CGrep.CLI.Config
 import CGrep.Utils.Reader
 import Safe
 
+import Data.Aeson (ToJSON (..), Value (..), (.=))
+import qualified Data.Aeson as Aeson
+import qualified Data.Aeson.Encode.Pretty as Aeson
+
+import Data.Map.Strict (Map)
+import qualified Data.Map.Strict as Map
 
 data Output = Output
     { outFilePath :: FilePath
@@ -66,10 +79,46 @@ data Output = Output
     }
     deriving (Show)
 
+data Match = Match
+    { matchRow    :: Int
+    , matchLine   :: Text8
+    , matchTokens :: [Token]
+    }
+
+newtype JSONOutput = JSONOutput (Map FilePath [Match])
+
+instance ToJSON Match where
+  toJSON m = Aeson.object [ "row"    .= rowJSON
+                          , "line"   .= lineJSON
+                          , "tokens" .= tokensJSON ]
+    where
+      rowJSON = matchRow m
+      lineJSON = LT.decodeUtf8 $ LB.fromStrict $ matchLine m
+      tokensJSON = tokenToJSON <$> matchTokens m
+
+      tokenToJSON :: (Int, String) -> Value
+      tokenToJSON (col, tok) = Aeson.object [ "col"   .= col
+                                            , "token" .= tok ]
+
+instance ToJSON JSONOutput where
+  toJSON (JSONOutput m) = toJSON (pairToV <$> Map.toList m)
+    where
+      pairToV :: (String, [Match]) -> Value
+      pairToV (k, v) = Aeson.object [ "file" .= k, "matches" .= v ]
+
+assembleOutputs :: [Output] -> JSONOutput
+assembleOutputs = JSONOutput
+                  . Map.fromListWith (++)
+                  . fmap toPair
+  where
+    toPair :: Output -> (FilePath, [Match])
+    toPair (Output fp row line toks) = (fp, [Match row line toks])
+
+outputsToJSON :: [Output] -> Value
+outputsToJSON = toJSON . assembleOutputs
 
 getOffsetsLines :: Text8 -> [Int]
 getOffsetsLines txt = let l = C.length txt in filter (<(l-1)) $ C.elemIndices '\n' txt
-
 
 getOffset2d :: [OffsetLine] -> Offset -> Offset2d
 getOffset2d idx off =
@@ -145,20 +194,13 @@ defaultOutput xs = do
                                                   return $ map (\ys@(y:_) -> showFile conf opt y ++ ":" ++ show (length ys)) gs
           |  otherwise -> undefined
 
-
 jsonOutput :: (Monad m) => [Output] -> OptionT m [String]
-jsonOutput outs = return $
-    [" { \"file\": " ++ show fname ++ ", \"matches\": ["] ++
-    [ intercalate "," (foldl mkMatch [] outs) ] ++
-    ["] }"]
-        where fname | (Output f _ _ _) <- head outs = f
-              mkToken (n, xs) = "{ \"col\": " ++ show n ++ ", \"token\": " ++ show xs ++ " }"
-              mkMatch xs (Output _ n l ts) = xs ++ [ "{ \"row\": " ++ show n ++ ", \"tokens\": [" ++ intercalate "," (map mkToken ts) ++ "], \"line\":" ++ show l ++ "}" ]
-
+jsonOutput = pure . map LT.unpack . LT.lines . encodeToText . outputsToJSON
+  where
+    encodeToText = (<> "\n") . LT.toLazyText . Aeson.encodePrettyToTextBuilder
 
 filenameOutput :: (Monad m) => [Output] -> OptionT m [String]
 filenameOutput outs = return $ nub $ map (\(Output fname _ _ _) -> fname) outs
-
 
 xmlOutput :: (Monad m) => [Output] -> OptionT m [String]
 xmlOutput outs = return $
@@ -242,7 +284,7 @@ showFile conf opt = showFileName conf opt . outFilePath
 showLineCol :: Options -> Output -> String
 showLineCol Options{no_numbers = True } _ = ""
 showLineCol Options{no_numbers = False, no_column = True  } (Output _ n _ _)  = show n
-showLineCol Options{no_numbers = False, no_column = False } (Output _ n _ []) = show n 
+showLineCol Options{no_numbers = False, no_column = False } (Output _ n _ []) = show n
 showLineCol Options{no_numbers = False, no_column = False } (Output _ n _ ts) = show n ++ ":" ++ show ((+1) . fst . head $ ts)
 
 
