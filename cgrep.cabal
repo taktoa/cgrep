@@ -15,32 +15,32 @@ cabal-version:          >=1.10
 
 library
   hs-source-dirs:       lib
-  exposed-modules:      CLI
-                        Debug
-                        Options
-                        CmdOptions
-                        Util
-                        Config
-                        Reader
-                        CGrep.Lang
-                        CGrep.Filter
-                        CGrep.Token
-                        CGrep.Types
-                        CGrep.CGrep
-                        CGrep.Output
-                        CGrep.Distance
+  exposed-modules:      CGrep.CGrep
                         CGrep.Common
                         CGrep.Context
-                        CGrep.Parser.WildCard
+                        CGrep.Distance
+                        CGrep.Filter
+                        CGrep.Lang
+                        CGrep.Output
+                        CGrep.Token
+                        CGrep.Types
+                        CGrep.CLI
+                        CGrep.CLI.CmdOptions
+                        CGrep.CLI.Config
+                        CGrep.CLI.Options
+                        CGrep.Parser.Cpp.Token
                         CGrep.Parser.Generic.Token
                         CGrep.Parser.Token
-                        CGrep.Parser.Cpp.Token
+                        CGrep.Parser.WildCard
+                        CGrep.Strategy.BoyerMoore
+                        CGrep.Strategy.Cpp.Semantic
+                        CGrep.Strategy.Cpp.Tokenizer
                         CGrep.Strategy.Generic.Semantic
                         CGrep.Strategy.Levenshtein
-                        CGrep.Strategy.BoyerMoore
-                        CGrep.Strategy.Cpp.Tokenizer
-                        CGrep.Strategy.Cpp.Semantic
                         CGrep.Strategy.Regex
+                        CGrep.Utils.Debug
+                        CGrep.Utils.Misc
+                        CGrep.Utils.Reader
   other-modules:        Paths_cgrep
   build-depends:        base < 5.0
                       , cmdargs              >= 0.10

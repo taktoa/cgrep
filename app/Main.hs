@@ -18,7 +18,7 @@
 
 module Main where
 
-import qualified CLI
+import qualified CGrep.CLI as Lib (main)
 
 main :: IO ()
-main = CLI.main
+main = Lib.main

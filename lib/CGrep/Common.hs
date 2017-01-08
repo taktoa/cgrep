@@ -33,9 +33,9 @@ import Data.Char
 import CGrep.Types
 import CGrep.Output
 
-import Options
-import Reader
-import Util
+import CGrep.CLI.Options
+import CGrep.Utils.Reader
+import CGrep.Utils.Misc
 
 
 trim :: String -> String

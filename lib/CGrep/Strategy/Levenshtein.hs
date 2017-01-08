@@ -30,8 +30,8 @@ import CGrep.Output
 import CGrep.Distance
 import CGrep.Token
 
-import Reader
-import Debug
+import CGrep.Utils.Reader
+import CGrep.Utils.Debug
 
 
 search :: FilePath -> [Text8] -> OptionT IO [Output]

@@ -37,9 +37,9 @@ import Data.List
 import Data.Function
 import Data.Maybe
 
-import Reader
-import Debug
-import Util
+import CGrep.Utils.Reader
+import CGrep.Utils.Debug
+import CGrep.Utils.Misc
 
 
 search :: FilePath -> [Text8] -> OptionT IO [Output]

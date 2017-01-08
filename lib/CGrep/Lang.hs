@@ -25,8 +25,8 @@ import Control.Monad
 import Control.Applicative
 import Data.Maybe
 
-import Options
-import Util
+import CGrep.CLI.Options
+import CGrep.Utils.Misc
 
 data Lang = Assembly | Awk  | C | CMake | Cabal | Chapel | Clojure | Coffee | Conf | Cpp  | Csharp | Css |
             D | Elixir | Erlang | Fortran | Fsharp | Go | Haskell | Html | Idris | Java | Javascript | Latex |

@@ -24,7 +24,7 @@ import CGrep.Common (Text8)
 
 import CGrep.Context
 import CGrep.Lang
-import Options
+import CGrep.CLI.Options
 
 import Data.Char
 import Data.Array.Unboxed

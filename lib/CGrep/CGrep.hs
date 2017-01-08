@@ -33,8 +33,8 @@ import CGrep.Output
 
 import Data.List
 import Data.Maybe
-import Options
-import Reader
+import CGrep.CLI.Options
+import CGrep.Utils.Reader
 
 hasLanguage :: FilePath -> Options -> [Lang] -> Bool
 hasLanguage path opt xs = isJust $ getFileLang opt path >>= (`elemIndex` xs)

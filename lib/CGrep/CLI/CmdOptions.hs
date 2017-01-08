@@ -16,13 +16,13 @@
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
 
-module CmdOptions where
+module CGrep.CLI.CmdOptions where
 
 import Data.Version(showVersion)
 import System.Console.CmdArgs
 
 import Paths_cgrep
-import Options
+import CGrep.CLI.Options
 
 options :: Mode (CmdArgs Options)
 options = cmdArgsMode $ Options

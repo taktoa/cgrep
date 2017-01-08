@@ -32,8 +32,8 @@ import CGrep.Parser.Token
 
 import Data.Char
 import Data.List
-import Options
-import Util
+import CGrep.CLI.Options
+import CGrep.Utils.Misc
 
 
 data WildCard a =

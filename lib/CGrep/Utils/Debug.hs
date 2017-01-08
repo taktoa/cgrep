@@ -16,11 +16,27 @@
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
 
-module Reader where
+module CGrep.Utils.Debug where
 
 import Control.Monad.Trans.Reader
+import Control.Monad.IO.Class
+import Control.Monad
 
-import Config
-import Options
+import CGrep.CLI.Options
+import CGrep.Utils.Reader
 
-type OptionT = ReaderT (Config, Options)
+
+putStrLevel1 :: String -> OptionT IO ()
+putStrLevel1 xs = do
+    n <- reader $ debug . snd
+    when (n > 0) $ liftIO $ putStrLn xs
+
+putStrLevel2 :: String -> OptionT IO ()
+putStrLevel2 xs = do
+    n <- reader $ debug . snd
+    when (n > 1) $ liftIO $ putStrLn xs
+
+putStrLevel3 :: String -> OptionT IO ()
+putStrLevel3 xs = do
+    n <- reader $ debug . snd
+    when (n > 2) $ liftIO $ putStrLn xs

@@ -36,9 +36,9 @@ import CGrep.Output
 import CGrep.Filter
 import CGrep.Lang
 
-import Reader
-import Options
-import Debug
+import CGrep.Utils.Reader
+import CGrep.CLI.Options
+import CGrep.Utils.Debug
 
 
 

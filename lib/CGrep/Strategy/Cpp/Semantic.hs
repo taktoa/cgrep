@@ -35,9 +35,9 @@ import CGrep.Output
 
 import CGrep.Parser.WildCard
 
-import Reader
-import Debug
-import Util
+import CGrep.Utils.Reader
+import CGrep.Utils.Debug
+import CGrep.Utils.Misc
 
 
 search :: FilePath -> [Text8] -> OptionT IO [Output]

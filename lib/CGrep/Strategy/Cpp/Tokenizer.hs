@@ -33,10 +33,10 @@ import CGrep.Distance
 
 import Data.List
 
-import Reader
-import Options
-import Debug
-import Util
+import CGrep.Utils.Reader
+import CGrep.CLI.Options
+import CGrep.Utils.Debug
+import CGrep.Utils.Misc
 
 
 search :: FilePath -> [Text8] -> OptionT IO [Output]

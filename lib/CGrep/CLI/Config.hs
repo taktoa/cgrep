@@ -16,7 +16,7 @@
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
 
-module Config where
+module CGrep.CLI.Config where
 
 import Data.List
 import Data.Char
@@ -26,7 +26,7 @@ import System.Directory
 import System.FilePath ((</>))
 import System.Console.ANSI
 
-import Util
+import CGrep.Utils.Misc
 import CGrep.Lang
 
 

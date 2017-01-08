@@ -16,7 +16,7 @@
 -- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 --
 
-module CLI where
+module CGrep.CLI where
 
 import Data.List
 import Data.List.Split
@@ -58,12 +58,12 @@ import CGrep.Output
 import CGrep.Common
 import CGrep.Parser.WildCard
 
-import CmdOptions
-import Options
-import Util
-import Debug
-import Config
-import Reader
+import CGrep.CLI.CmdOptions
+import CGrep.CLI.Options
+import CGrep.Utils.Misc
+import CGrep.Utils.Debug
+import CGrep.CLI.Config
+import CGrep.Utils.Reader
 
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as C
@@ -99,7 +99,7 @@ withRecursiveContents opts dir langs prunedir visited action = do
                               else  catMaybes $ zipWith (\f m ->  if any (`isInfixOf` m) (magic_filter opts) then Just f else Nothing ) files magics
 
                unless (null files') $
-                    let chunks = chunksOf (Options.chunk opts) files' in
+                    let chunks = chunksOf (CGrep.CLI.Options.chunk opts) files' in
                     forM_ chunks $ \b -> action b
 
                -- process dirs

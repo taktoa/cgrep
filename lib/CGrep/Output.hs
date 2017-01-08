@@ -51,10 +51,10 @@ import Data.Function
 import CGrep.Types
 import CGrep.Token
 
-import Options
-import Util
-import Config
-import Reader
+import CGrep.CLI.Options
+import CGrep.Utils.Misc
+import CGrep.CLI.Config
+import CGrep.Utils.Reader
 import Safe
 
 
