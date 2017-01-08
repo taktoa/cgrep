@@ -19,7 +19,7 @@
 
 module CGrep.Distance (distance, (~==)) where
 
--- from http://www.haskell.org/haskellwiki/Edit_distance
+-- from https://wiki.haskell.org/Edit_distance
 --
 
 distance :: Eq a => [a] -> [a] -> Int
