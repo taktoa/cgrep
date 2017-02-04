@@ -85,8 +85,6 @@ data Match = Match
     , matchTokens :: [Token]
     }
 
-newtype JSONOutput = JSONOutput (Map FilePath [Match])
-
 instance ToJSON Match where
   toJSON m = Aeson.object [ "row"    .= rowJSON
                           , "line"   .= lineJSON
@@ -100,22 +98,20 @@ instance ToJSON Match where
       tokenToJSON (col, tok) = Aeson.object [ "col"   .= col
                                             , "token" .= tok ]
 
-instance ToJSON JSONOutput where
-  toJSON (JSONOutput m) = toJSON (pairToV <$> Map.toList m)
-    where
-      pairToV :: (String, [Match]) -> Value
-      pairToV (k, v) = Aeson.object [ "file" .= k, "matches" .= v ]
+outputToJSON :: Map FilePath [Match] -> [Value]
+outputToJSON = fmap pairToV . Map.toList
+  where
+    pairToV :: (String, [Match]) -> Value
+    pairToV (k, v) = Aeson.object [ "file" .= k, "matches" .= v ]
 
-assembleOutputs :: [Output] -> JSONOutput
-assembleOutputs = JSONOutput
-                  . Map.fromListWith (++)
-                  . fmap toPair
+assembleOutputs :: [Output] -> Map FilePath [Match]
+assembleOutputs = Map.fromListWith (++) . fmap toPair
   where
     toPair :: Output -> (FilePath, [Match])
     toPair (Output fp row line toks) = (fp, [Match row line toks])
 
-outputsToJSON :: [Output] -> Value
-outputsToJSON = toJSON . assembleOutputs
+outputsToJSON :: [Output] -> [Value]
+outputsToJSON = outputToJSON . assembleOutputs
 
 getOffsetsLines :: Text8 -> [Int]
 getOffsetsLines txt = let l = C.length txt in filter (<(l-1)) $ C.elemIndices '\n' txt
@@ -195,9 +191,10 @@ defaultOutput xs = do
           |  otherwise -> undefined
 
 jsonOutput :: (Monad m) => [Output] -> OptionT m [String]
-jsonOutput = pure . map LT.unpack . LT.lines . encodeToText . outputsToJSON
+jsonOutput = pure . map LT.unpack . concatMap encodeToLines . outputsToJSON
   where
-    encodeToText = (<> "\n") . LT.toLazyText . Aeson.encodePrettyToTextBuilder
+    encodeToLines = LT.lines . (<> "\n") . LT.toLazyText . encodePretty
+    encodePretty = Aeson.encodePrettyToTextBuilder
 
 filenameOutput :: (Monad m) => [Output] -> OptionT m [String]
 filenameOutput outs = return $ nub $ map (\(Output fname _ _ _) -> fname) outs
